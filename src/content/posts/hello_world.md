@@ -1,6 +1,6 @@
 ---
 title: Hello World
-published: 2025-10-30
+published: 2025-10-29
 description: ''
 image: ''
 tags: []

@@ -3,7 +3,7 @@ title: TSCTF-J 2025 WriteUp
 published: 2025-10-30
 description: '一位CTFer的学习起点'
 image: './109301396_p0.png'
-tags: ["reverse", "Web"]
+tags: ["Reverse", "Web"]
 category: 'CTF'
 draft: false 
 lang: 'zh-cn'
@@ -166,10 +166,10 @@ if __name__ == "__main__":
 
 ### CryDancing
 
-> I'm crying dancing
-> It's really quite outstanding
-> It's not my heart that's breaking
-> It's just the songs they're playing
+> I'm crying dancing<br>
+> It's really quite outstanding<br>
+> It's not my heart that's breaking<br>
+> It's just the songs they're playing<br>
 
 解压后找到`CryDancing`这个二进制文件，IDA打开
 查看函数列表，查资料得，形如`+/-[abc]`为ObjectiveC的函数

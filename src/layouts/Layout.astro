@@ -156,6 +156,18 @@ const bannerOffset =
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
+
+		<!-- fireworks 鼠标点击特效-->
+     <canvas
+         id="fireworks"
+         style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+     ></canvas>
+     <script
+         type="text/javascript"
+         src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"
+     ></script>
+     <script type="text/javascript" src="/utils/fireworks.min.js"></script>
+     <!-- fireworks 鼠标点击特效结束-->
 	</body>
 </html>
 
