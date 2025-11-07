@@ -30,7 +30,7 @@ lang: 'zh-cn'
 （此处省略截图）
 完整脚本如下：
 
-```C
+```cpp
 #include <cstdio>
 #include <cstring>
 #include <iostream>
@@ -243,7 +243,7 @@ print(plaintext.decode('utf-8'))
 
 得到Lua代码
 
-```Lua
+```lua
 local function xor_byte(a, b)
     local result = 0
     for i = 0, 7 do
