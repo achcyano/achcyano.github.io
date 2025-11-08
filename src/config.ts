@@ -48,7 +48,7 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Series,
 		{
 			name: "GitHub",
-			url: "https://github.com/achcyano/achcyano", // Internal links should not include the base path, as it is automatically added
+			url: "https://github.com/achcyano", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
 		},
 	],
