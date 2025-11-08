@@ -5,6 +5,7 @@ description: 写Blog的基本方式OvO
 tags: [Markdown, Fuwari]
 category: Blog
 draft: false
+series: 'Fuwari官方文档'
 ---
 
 ## 好看的代码
@@ -44,7 +45,7 @@ Text formatting: [1mBold[0m [2mDimmed[0m [3mItalic[0m [4mUnderline[0m
 
 #### 代码编辑器视图
 
-```js title="my-test-file.js"
+```js
 console.log('Title attribute example')
 ```
 
@@ -63,19 +64,19 @@ echo "This terminal frame has no title"
 
 ---
 
-```powershell title="PowerShell terminal example"
+```powershell
 Write-Output "This one has a title!"
 ```
 
 #### 覆写视图类型
 
-```sh frame="none"
+```sh
 echo "Look ma, no frame!"
 ```
 
 ---
 
-```ps frame="code" title="PowerShell Profile.ps1"
+```ps
 # Without overriding, this would be a terminal frame
 function Watch-Tail { Get-Content -Tail 20 -Wait $args }
 New-Alias tail Watch-Tail
@@ -87,7 +88,7 @@ New-Alias tail Watch-Tail
 
 #### 标记整行/范围
 
-```js {1, 4, 7-8}
+```js
 // Line 1 - targeted by line number
 // Line 2
 // Line 3
@@ -100,7 +101,7 @@ New-Alias tail Watch-Tail
 
 #### 选择标记类型 (mark, ins, del)
 
-```js title="line-markers.js" del={2} ins={3-4} {6}
+```js
 function demo() {
   console.log('this line is marked as deleted')
   // This line and the next one are marked as inserted
@@ -112,7 +113,7 @@ function demo() {
 
 #### 对标记的行添加标签
 
-```jsx {"1":5} del={"2":7-8} ins={"3":10-12}
+```jsx
 // labeled-line-markers.jsx
 <button
   role="button"
@@ -130,7 +131,7 @@ function demo() {
 
 #### 在行中添加很长的标签
 
-```jsx {"1. Provide the value prop here:":5-6} del={"2. Remove the disabled and active states:":8-10} ins={"3. Add this to render the children inside the button:":12-15}
+```jsx
 // labeled-line-markers.jsx
 <button
   role="button"
@@ -170,8 +171,8 @@ this is a regular line
 
 #### 结合代码高亮和增添/删除高亮
 
-```diff lang="js"
-  function thisIsJavaScript() {
+```diff
+function thisIsJavaScript() {
     // This entire block gets highlighted as JavaScript,
     // and we can still add diff markers to it!
 -   console.log('Old code to be removed')
@@ -181,7 +182,7 @@ this is a regular line
 
 #### 标记行中的部分文本
 
-```js "given text"
+```js
 function demo() {
   // Mark any given text inside lines
   return 'Multiple matches of the given text are supported';
@@ -190,19 +191,19 @@ function demo() {
 
 #### 常规表达式
 
-```ts /ye[sp]/
+```ts
 console.log('The words yes and yep will be marked.')
 ```
 
 #### 转义正斜杠（？
 
-```sh /\/ho.*\//
+```sh
 echo "Test" > /home/test.txt
 ```
 
 #### 选择标记类型 增加/删除  (mark, ins, del)
 
-```js "return true;" ins="inserted" del="deleted"
+```js
 function demo() {
   console.log('These are inserted and deleted marker types');
   // The return statement uses the default marker type
@@ -216,7 +217,7 @@ function demo() {
 
 #### 自动换行？
 
-```js wrap
+```js
 // Example with wrap
 function getLongString() {
   return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
@@ -225,7 +226,7 @@ function getLongString() {
 
 ---
 
-```js wrap=false
+```js
 // Example with wrap=false
 function getLongString() {
   return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
@@ -234,7 +235,7 @@ function getLongString() {
 
 #### 两种缩进
 
-```js wrap preserveIndent
+```js
 // Example with preserveIndent (enabled by default)
 function getLongString() {
   return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
@@ -243,7 +244,7 @@ function getLongString() {
 
 ---
 
-```js wrap preserveIndent=false
+```js
 // Example with preserveIndent=false
 function getLongString() {
   return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
@@ -254,7 +255,7 @@ function getLongString() {
 
 [Collapsible Sections](https://expressive-code.com/plugins/collapsible-sections/)
 
-```js collapse={1-5, 12-14, 21-24}
+```js
 // All this boilerplate setup code will be collapsed
 import { someBoilerplateEngine } from '@example/some-boilerplate'
 import { evenMoreBoilerplate } from '@example/even-more-boilerplate'
@@ -287,7 +288,7 @@ engine.shutdown({ reason: 'End of example boilerplate code' })
 
 ### 不显示代码行数
 
-```js showLineNumbers
+```js
 // This code block will show line numbers
 console.log('Greetings from line 2!')
 console.log('I am on line 3')
@@ -295,7 +296,7 @@ console.log('I am on line 3')
 
 ---
 
-```js showLineNumbers=false
+```js
 // Line numbers are disabled for this block
 console.log('Hello?')
 console.log('Sorry, do you know what line I am on?')
@@ -303,7 +304,8 @@ console.log('Sorry, do you know what line I am on?')
 
 ### 修改起始行标记
 
-```js showLineNumbers startLineNumber=5
+```js
 console.log('Greetings from line 5!')
 console.log('I am on line 6')
 ```
+

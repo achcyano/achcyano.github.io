@@ -1,20 +1,14 @@
 import type { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants";
+import type * as Giscus from "@giscus/svelte";
 
 export type SiteConfig = {
 	title: string;
 	subtitle: string;
 
-	lang:
-		| "en"
-		| "zh_CN"
-		| "zh_TW"
-		| "ja"
-		| "ko"
-		| "es"
-		| "th"
-		| "vi"
-		| "tr"
-		| "id";
+	lang: "en" | "zh_CN" | "zh_TW" | "ja" | "ko" | "es" | "th";
+	//| "vi"
+	//| "tr"
+	//| "id";
 
 	themeColor: {
 		hue: number;
@@ -87,6 +81,7 @@ export type BlogPostData = {
 	title: string;
 	published: Date;
 	description: string;
+	series?: string;
 	tags: string[];
 	draft?: boolean;
 	image?: string;
@@ -99,4 +94,25 @@ export type BlogPostData = {
 
 export type ExpressiveCodeConfig = {
 	theme: string;
+};
+
+export type CommentConfig = {
+	giscus?: GiscusConfig;
+};
+
+type GiscusConfig = {
+	repo: Giscus.Repo;
+	host?: string;
+	repoId: string;
+	category: string;
+	categoryId: string;
+	mapping?: Giscus.Mapping;
+	term?: string;
+	strict?: Giscus.BooleanString;
+	reactionsEnabled?: Giscus.BooleanString;
+	emitMetadata?: Giscus.BooleanString;
+	inputPosition?: Giscus.InputPosition;
+	theme?: Giscus.Theme;
+	lang?: Giscus.AvailableLanguage;
+	loading?: Giscus.Loading;
 };

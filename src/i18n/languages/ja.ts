@@ -7,6 +7,8 @@ export const ja: Translation = {
 	[Key.archive]: "Archive",
 	[Key.search]: "検索",
 
+	[Key.series]: "シリーズ",
+
 	[Key.tags]: "タグ",
 	[Key.categories]: "カテゴリ",
 	[Key.recentPosts]: "最近の投稿",

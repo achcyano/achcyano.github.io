@@ -7,6 +7,7 @@ tags: ["Reverse", "Web"]
 category: 'CTF'
 draft: false 
 lang: 'zh-cn'
+series: 'CTF学习笔记'
 ---
 
 > Cover image source: [Source](https://www.pixiv.net/artworks/109301396)
