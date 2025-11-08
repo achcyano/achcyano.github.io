@@ -45,6 +45,7 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
+		LinkPreset.Series,
 		{
 			name: "GitHub",
 			url: "https://github.com/achcyano/achcyano", // Internal links should not include the base path, as it is automatically added
@@ -57,6 +58,7 @@ export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/icon.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "AChCyano",
 	bio: "OvO",
+
 	links: [
 		{
 			name: "Bilibili",

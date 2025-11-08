@@ -5,7 +5,7 @@ description: 写Blog的基本方式OvO
 tags: [Markdown, Fuwari]
 category: Blog
 draft: false
-series: "Fuwari"
+series: "Fuwari官方文档"
 ---
 
 ## 好看的代码

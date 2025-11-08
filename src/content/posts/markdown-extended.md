@@ -7,7 +7,7 @@ image: ''
 tags: [Markdown, Fuwari]
 category: 'Blog'
 draft: false
-series: "Fuwari"
+series: "Fuwari官方文档"
 ---
 
 ## GitHub Repository Cards
