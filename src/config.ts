@@ -9,7 +9,7 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "曦のBlog",
+	title: "曦の休息处",
 	subtitle: "指向未来的二级指针",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
