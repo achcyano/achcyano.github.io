@@ -18,12 +18,12 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/background.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "assets/images/Still_002_001.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: true, // Display the credit text of the banner image
-			text: "Unknotted,at last Artwork by AChCyano", // Credit text to be displayed
-			url: "https://www.pixiv.net/artworks/137102973", // (Optional) URL link to the original artwork or artist's page
+			text: "魔法少女的魔女审判 by Re,AER", // Credit text to be displayed
+			url: "https://store.steampowered.com/app/3101040/", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
 	toc: {
