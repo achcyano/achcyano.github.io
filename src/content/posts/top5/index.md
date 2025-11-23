@@ -1,6 +1,6 @@
 ---
 title: TOP5
-published: 2025-11-23
+published: 2025-11-22
 description: 'TOP5流行的加密算法'
 image: './Still_040_001.png'
 tags: ["Reverse"]
@@ -9,16 +9,21 @@ draft: false
 lang: 'zh-cn'
 series: 'CTF学习笔记'
 ---
+
 > Cover image source: [Source](https://store.steampowered.com/app/3101040/)
+
 # TOP5流行的加密算法
 
 ## TEA
+
 ### 需要提供的
+
 - 128 位密钥（4 个 32 位无符号整数）
 - 明文/密文
 - 初始向量(IV)
 
 ### 示例代码
+
 ```python
 import struct
 
@@ -66,11 +71,14 @@ if __name__ == "__main__":
 ```
 
 ## RC4
+
 ### 需要提供的
+
 - 明文/密文
 - 密钥
 
 ### 示例代码
+
 ```python
 def rc4(data, key):
     S = list(range(256))
@@ -98,10 +106,13 @@ if __name__ == "__main__":
 ```
 
 ## Base64
+
 ### 需要提供的
+
 - 明文/密文
 
 ### 示例代码
+
 ```python
 import base64
 
@@ -117,14 +128,15 @@ cipher = b64_encrypt(plain)
 print(f"Base64: {b64_decrypt(cipher) == plain}")
 ```
 
-
-
 ## XOR
+
 ### 需要提供的
+
 - 密文
 - 异或的字节
 
 ### 示例代码
+
 ```python
 def xor_crypt(text, key_byte):
     return "".join(chr(ord(c) ^ key_byte) for c in text)
@@ -136,12 +148,15 @@ print(f"XOR: {xor_crypt(cipher, key) == plain}")
 ```
 
 ## XTEA
+
 ### 需要提供的
+
 - 明文/密文
 - 密钥
 - 加密轮数
 
 ### 示例代码
+
 ```python
 import struct
 
@@ -171,5 +186,5 @@ key = b"coka cola espuma"
 plain = b"TOP5+enc"
 cipher = xtea_encrypt(plain, key)
 print(f"XTEA: {xtea_decrypt(cipher, key) == plain}")
-
 ```
+
