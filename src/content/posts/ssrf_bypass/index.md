@@ -11,8 +11,9 @@ series: "CTF学习笔记"
 ---
 
 > Cover image source: [Source](https://store.steampowered.com/app/3101040/)
-> 用于 **SSRF (Server-Side Request Forgery，服务端请求伪造)** 漏洞的利用过程中。
+<br>
 
+用于 **SSRF (Server-Side Request Forgery，服务端请求伪造)** 漏洞的利用过程中。
 这个对抗过程通常被称为 **SSRF Bypass (SSRF 绕过)** 或 **SSRF Filter Evasion (SSRF 过滤器规避)**。
 
 当 `127.0.0.1` 或 `localhost` 被黑名单屏蔽时，尝试以下多种方法进行绕过：
