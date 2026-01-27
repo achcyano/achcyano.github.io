@@ -5,7 +5,7 @@ description: 'N1CTF Junior 2026 1/2 Reverse WriteUp'
 image: ''
 tags: ['Reverse']
 category: 'CTF'
-draft: true 
+draft: false 
 lang: ''
 series: "CTF学习笔记"
 ---
