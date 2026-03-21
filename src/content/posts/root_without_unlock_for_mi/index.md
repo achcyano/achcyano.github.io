@@ -29,11 +29,11 @@ series: ""
 - 获取KernelSU的CI版本，见[KernelSU群组](https://t.me/KernelSU_group/3234/466659)
 - 获取Lsposed IT，见[Lsposed Internal Test群组](https://t.me/LSPosed/287)
 - 获取[Zygisk Next](https://t.me/KernelSU_group/26909/448482)
-- 获取ksud：zip打开kernelsu.apk，将libs/arm64-v8a/libksud.so复制到fastboot.exe同目录下并重命名为ksud
+- 获取ksud：zip打开kernelsu.apk，提取libs/arm64-v8a/libksud.so到fastboot.exe同目录下并重命名为ksud
 - 开启USB调试
 
 :::caution
-尽管此方案并不会清除数据，但仍然建议开始操作前进行备份，以免误操作带来的以外
+尽管此方案并不会清除数据，但仍然建议开始操作前进行备份，以免误操作带来意外
 :::
 
 ## 以SELinux宽容模式启动
