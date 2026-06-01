@@ -9,48 +9,78 @@ const { class: className, style } = Astro.props;
 ---
 
 <WidgetLayout name="统计" id="busuanzi-stats" class:list={[className]} {style}>
-  <div class="text-center py-2">
-    <div class="text-3xl font-bold text-neutral-900 dark:text-neutral-100" id="busuanzi_value_site_pv">-</div>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">总浏览量</div>
-  </div>
-  <div class="grid grid-cols-2 divide-x divide-neutral-200 dark:divide-neutral-700 text-center pt-2">
-    <div class="px-2">
-      <div class="text-xl font-bold text-neutral-900 dark:text-neutral-100" id="busuanzi_value_site_uv">-</div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">访客数</div>
-    </div>
-    <div class="px-2">
-      <div class="text-xl font-bold text-neutral-900 dark:text-neutral-100" id="busuanzi_value_page_pv">-</div>
-      <div class="text-sm text-neutral-500 dark:text-neutral-400">本页浏览量</div>
-    </div>
-  </div>
+	<div class="text-center py-2">
+		<div
+			class="text-3xl font-bold text-neutral-900 dark:text-neutral-100"
+			id="busuanzi_value_site_pv"
+		>
+			-
+		</div>
+		<div class="text-sm text-neutral-500 dark:text-neutral-400">总浏览量</div>
+	</div>
+	<div class="grid grid-cols-2 divide-x divide-neutral-200 dark:divide-neutral-700 text-center pt-2">
+		<div class="px-2">
+			<div
+				class="text-xl font-bold text-neutral-900 dark:text-neutral-100"
+				id="busuanzi_value_site_uv"
+			>
+				-
+			</div>
+			<div class="text-sm text-neutral-500 dark:text-neutral-400">访客数</div>
+		</div>
+		<div class="px-2">
+			<div
+				class="text-xl font-bold text-neutral-900 dark:text-neutral-100"
+				id="busuanzi_value_page_pv"
+			>
+				-
+			</div>
+			<div class="text-sm text-neutral-500 dark:text-neutral-400">本页浏览量</div>
+		</div>
+	</div>
 </WidgetLayout>
 
-<!-- 引入不蒜子统计脚本 -->
 <script is:inline>
-(function() {
-  const BUSUANZI_SCRIPT_ID = 'busuanzi-script';
-  const EXISTING_SCRIPT = document.getElementById(BUSUANZI_SCRIPT_ID);
+(function () {
+	const BUSUANZI_SCRIPT_ID = "busuanzi-script";
+	const BUSUANZI_SCRIPT_URL =
+		"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+	const VALUE_IDS = [
+		"busuanzi_value_site_pv",
+		"busuanzi_value_site_uv",
+		"busuanzi_value_page_pv",
+	];
 
-  // 删除旧的不蒜子脚本（防止重复加载）
-  if (EXISTING_SCRIPT) EXISTING_SCRIPT.remove();
+	function resetStats() {
+		VALUE_IDS.forEach((id) => {
+			const element = document.getElementById(id);
+			if (element) element.textContent = "-";
+		});
+	}
 
-  const script = document.createElement('script');
-  script.id = BUSUANZI_SCRIPT_ID;
-  script.async = true;
-  script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-  document.body.appendChild(script);
+	function loadBusuanzi() {
+		const oldScript = document.getElementById(BUSUANZI_SCRIPT_ID);
+		if (oldScript) oldScript.remove();
 
-  // 如果有使用 swup 页面切换，重新加载统计
-  if (window.swup) {
-    window.swup.hooks.on('page:view', () => {
-      const old = document.getElementById(BUSUANZI_SCRIPT_ID);
-      if (old) old.remove();
-      const newScript = document.createElement('script');
-      newScript.id = BUSUANZI_SCRIPT_ID;
-      newScript.async = true;
-      newScript.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-      document.body.appendChild(newScript);
-    });
-  }
+		resetStats();
+
+		const script = document.createElement("script");
+		script.id = BUSUANZI_SCRIPT_ID;
+		script.async = true;
+		script.referrerPolicy = "no-referrer-when-downgrade";
+		script.src = BUSUANZI_SCRIPT_URL;
+		document.body.appendChild(script);
+	}
+
+	function setupSwupRefresh() {
+		if (!window.swup || window.__busuanziSwupRefreshBound) return;
+
+		window.__busuanziSwupRefreshBound = true;
+		window.swup.hooks.on("page:view", loadBusuanzi);
+	}
+
+	loadBusuanzi();
+	setupSwupRefresh();
+	document.addEventListener("swup:enable", setupSwupRefresh, { once: true });
 })();
 </script>
