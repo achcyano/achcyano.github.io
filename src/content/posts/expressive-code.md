@@ -1,94 +1,90 @@
 ---
-title: Fuwari Markdown用法
+title: Expressive Code 用法
 published: 2024-04-10
-description: 写Blog的基本方式OvO
+description: 整理本站代码块、语法高亮、行号、标记和折叠写法。
 tags: [Markdown, Fuwari]
 category: Blog
 draft: false
 series: "Fuwari官方文档"
 ---
 
-## 好看的代码
+本站使用 [Expressive Code](https://expressive-code.com/) 渲染代码块。它会在普通 Markdown 代码块的基础上增加语法高亮、文件名、终端样式、行号、行标记、diff 标记和折叠区域。
 
-### 语法高亮
+## 基础代码块
 
-[Syntax Highlighting](https://expressive-code.com/key-features/syntax-highlighting/)
-
-#### 常规的语法高亮
+在三个反引号后写语言名，就可以得到对应语言的语法高亮。
 
 ```js
 console.log('This code is syntax highlighted!')
 ```
 
-#### 渲染ANSI转义序列
+不知道该写什么语言时，可以先写 `text`。如果是命令行内容，优先使用 `bash`、`sh`、`powershell` 或 `shellsession`。
 
-```ansi
-ANSI colors:
-- Regular: [31mRed[0m [32mGreen[0m [33mYellow[0m [34mBlue[0m [35mMagenta[0m [36mCyan[0m
-- Bold:    [1;31mRed[0m [1;32mGreen[0m [1;33mYellow[0m [1;34mBlue[0m [1;35mMagenta[0m [1;36mCyan[0m
-- Dimmed:  [2;31mRed[0m [2;32mGreen[0m [2;33mYellow[0m [2;34mBlue[0m [2;35mMagenta[0m [2;36mCyan[0m
+## 文件名和标题
 
-256 colors (showing colors 160-177):
-[38;5;160m160 [38;5;161m161 [38;5;162m162 [38;5;163m163 [38;5;164m164 [38;5;165m165[0m
-[38;5;166m166 [38;5;167m167 [38;5;168m168 [38;5;169m169 [38;5;170m170 [38;5;171m171[0m
-[38;5;172m172 [38;5;173m173 [38;5;174m174 [38;5;175m175 [38;5;176m176 [38;5;177m177[0m
+在代码块开头加 `title` 可以显示文件名或标题。
 
-Full RGB colors:
-[38;2;34;139;34mForestGreen - RGB(34, 139, 34)[0m
-
-Text formatting: [1mBold[0m [2mDimmed[0m [3mItalic[0m [4mUnderline[0m
-```
-
-### 编辑器 & 终端视图
-
-[Editor & Terminal Frames](https://expressive-code.com/key-features/frames/)
-
-#### 代码编辑器视图
-
-```js
+```js title="src/main.js"
 console.log('Title attribute example')
 ```
 
----
+如果代码前几行是文件名注释，Expressive Code 也可以自动识别成标题。
 
 ```html
 <!-- src/content/index.html -->
 <div>File name comment example</div>
 ```
 
-#### 终端视图
+## 终端视图
 
-```bash
-echo "This terminal frame has no title"
+命令行语言会自动使用终端样式。
+
+```bash title="terminal"
+pnpm install
+pnpm dev
 ```
 
----
+`shellsession` 适合展示带提示符的连续会话。
 
-```powershell
-Write-Output "This one has a title!"
+```shellsession
+$ pnpm check
+$ pnpm build
 ```
 
-#### 覆写视图类型
+如果某个代码块不想显示编辑器或终端外框，可以设置 `frame="none"`。
 
-```sh
-echo "Look ma, no frame!"
+```sh frame="none"
+echo 'No frame for this block'
 ```
 
----
+## 行号
 
-```ps
-# Without overriding, this would be a terminal frame
-function Watch-Tail { Get-Content -Tail 20 -Wait $args }
-New-Alias tail Watch-Tail
+需要明确显示行号时，添加 `showLineNumbers`。
+
+```js showLineNumbers
+console.log('Greetings from line 1!')
+console.log('I am on line 2')
 ```
 
-### 文本和行标记
+不想显示行号时，添加 `showLineNumbers=false`。
 
-[Text & Line Markers](https://expressive-code.com/key-features/text-markers/)
+```js showLineNumbers=false
+console.log('This block hides line numbers')
+console.log('Useful for short examples')
+```
 
-#### 标记整行/范围
+也可以修改起始行号。
 
-```js
+```js showLineNumbers startLineNumber=5
+console.log('Greetings from line 5!')
+console.log('I am on line 6')
+```
+
+## 标记整行
+
+在代码块开头用 `{}` 指定行号或行范围，就可以高亮对应行。
+
+```js {1,4,7-8}
 // Line 1 - targeted by line number
 // Line 2
 // Line 3
@@ -99,9 +95,9 @@ New-Alias tail Watch-Tail
 // Line 8 - targeted by range "7-8"
 ```
 
-#### 选择标记类型 (mark, ins, del)
+可以用 `ins` 和 `del` 区分新增行与删除行；没有指定类型的 `{}` 会使用普通高亮。
 
-```js
+```js title="line-markers.js" del={2} ins={3-4} {6}
 function demo() {
   console.log('this line is marked as deleted')
   // This line and the next one are marked as inserted
@@ -111,201 +107,69 @@ function demo() {
 }
 ```
 
-#### 对标记的行添加标签
+## 标记行内文本
 
-```jsx
-// labeled-line-markers.jsx
-<button
-  role="button"
-  {...props}
-  value={value}
-  className={buttonClassName}
-  disabled={disabled}
-  active={active}
->
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
-</button>
+在开头写一段字符串，可以标记代码中匹配到的文本。也可以使用 `ins="..."` 和 `del="..."` 指定新增或删除样式。
+
+```ts "userId" ins="accountId" del="legacyId"
+const legacyId = 'old-id'
+const accountId = 'new-id'
+const userId = accountId
 ```
 
-#### 在行中添加很长的标签
+## Diff 代码块
 
-```jsx
-// labeled-line-markers.jsx
-<button
-  role="button"
-  {...props}
-
-  value={value}
-  className={buttonClassName}
-
-  disabled={disabled}
-  active={active}
->
-
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
-</button>
-```
-
-#### 使用增加/删除这种语法高亮
+使用 `diff` 语言时，以 `+` 开头的行会显示为新增，以 `-` 开头的行会显示为删除。
 
 ```diff
-+this line will be marked as inserted
--this line will be marked as deleted
-this is a regular line
+-const theme = 'light'
++const theme = 'dark'
+ const mode = 'auto'
 ```
 
----
+如果希望 diff 同时按某种语言高亮，可以加 `lang`。
 
-```diff
---- a/README.md
-+++ b/README.md
-@@ -1,3 +1,4 @@
-+this is an actual diff file
--all contents will remain unmodified
- no whitespace will be removed either
-```
-
-#### 结合代码高亮和增添/删除高亮
-
-```diff
-function thisIsJavaScript() {
-    // This entire block gets highlighted as JavaScript,
-    // and we can still add diff markers to it!
--   console.log('Old code to be removed')
-+   console.log('New and shiny code!')
-  }
-```
-
-#### 标记行中的部分文本
-
-```js
-function demo() {
-  // Mark any given text inside lines
-  return 'Multiple matches of the given text are supported';
+```diff lang="ts"
+export function getTheme() {
+-  return 'light'
++  return 'dark'
 }
 ```
 
-#### 常规表达式
+## 自动换行
 
-```ts
-console.log('The words yes and yep will be marked.')
+本站代码块默认适合在窄屏阅读。遇到必须保持横向滚动的长行，可以为单个代码块关闭换行。
+
+```js wrap=false
+const longText = 'This is a very long string that should stay on one line when wrap is disabled for this code block.'
 ```
 
-#### 转义正斜杠（？
+## 折叠代码
 
-```sh
-echo "Test" > /home/test.txt
-```
+较长示例可以用 `collapse` 折叠不重要的行。多个范围用逗号分隔。
 
-#### 选择标记类型 增加/删除  (mark, ins, del)
+```ts collapse={1-5,17-19}
+import { createClient } from '@example/client'
+import { readConfig } from '@example/config'
+import { createLogger } from '@example/logger'
 
-```js
-function demo() {
-  console.log('These are inserted and deleted marker types');
-  // The return statement uses the default marker type
-  return true;
-}
-```
+const config = readConfig()
+const logger = createLogger(config.logLevel)
+const client = createClient(config)
 
-### 单词包裹
-
-[Word Wrap](https://expressive-code.com/key-features/word-wrap/)
-
-#### 自动换行？
-
-```js
-// Example with wrap
-function getLongString() {
-  return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
-}
-```
-
----
-
-```js
-// Example with wrap=false
-function getLongString() {
-  return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
-}
-```
-
-#### 两种缩进
-
-```js
-// Example with preserveIndent (enabled by default)
-function getLongString() {
-  return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
-}
-```
-
----
-
-```js
-// Example with preserveIndent=false
-function getLongString() {
-  return 'This is a very long string that will most probably not fit into the available space unless the container is extremely wide'
-}
-```
-
-## 展开/收起代码块
-
-[Collapsible Sections](https://expressive-code.com/plugins/collapsible-sections/)
-
-```js
-// All this boilerplate setup code will be collapsed
-import { someBoilerplateEngine } from '@example/some-boilerplate'
-import { evenMoreBoilerplate } from '@example/even-more-boilerplate'
-
-const engine = someBoilerplateEngine(evenMoreBoilerplate())
-
-// This part of the code will be visible by default
-engine.doSomething(1, 2, 3, calcFn)
-
-function calcFn() {
-  // You can have multiple collapsed sections
-  const a = 1
-  const b = 2
-  const c = a + b
-
-  // This will remain visible
-  console.log(`Calculation result: ${a} + ${b} = ${c}`)
-  return c
+export async function main() {
+  logger.info('start')
+  const result = await client.fetch('/api/status')
+  logger.info(result.status)
+  return result
 }
 
-// All this code until the end of the block will be collapsed again
-engine.closeConnection()
-engine.freeMemory()
-engine.shutdown({ reason: 'End of example boilerplate code' })
+await main()
+
+client.close()
+logger.info('done')
 ```
 
-## 行数
+## 常用组合
 
-[Line Numbers](https://expressive-code.com/plugins/line-numbers/)
-
-### 不显示代码行数
-
-```js
-// This code block will show line numbers
-console.log('Greetings from line 2!')
-console.log('I am on line 3')
-```
-
----
-
-```js
-// Line numbers are disabled for this block
-console.log('Hello?')
-console.log('Sorry, do you know what line I am on?')
-```
-
-### 修改起始行标记
-
-```js
-console.log('Greetings from line 5!')
-console.log('I am on line 6')
-```
-
+日常写文章时，最常用的是 `title`、`{1,3-5}`、`ins={}`、`del={}`、`showLineNumbers` 和 `collapse={}`。如果只是展示几行普通代码，保留最简单的语言标记即可，不需要给每个代码块都加额外配置。
