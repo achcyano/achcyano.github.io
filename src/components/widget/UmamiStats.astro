@@ -43,13 +43,13 @@ const { class: className, style } = Astro.props;
 <script is:inline>
 (function () {
 	const BUSUANZI_SCRIPT_ID = "busuanzi-script";
-	const BUSUANZI_SCRIPT_URL =
-		"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+	const BUSUANZI_ENDPOINT = "https://busuanzi.ibruce.info/busuanzi";
 	const VALUE_IDS = [
 		"busuanzi_value_site_pv",
 		"busuanzi_value_site_uv",
 		"busuanzi_value_page_pv",
 	];
+	let activeCallbackName = "";
 
 	function resetStats() {
 		VALUE_IDS.forEach((id) => {
@@ -61,14 +61,40 @@ const { class: className, style } = Astro.props;
 	function loadBusuanzi() {
 		const oldScript = document.getElementById(BUSUANZI_SCRIPT_ID);
 		if (oldScript) oldScript.remove();
+		if (activeCallbackName) delete window[activeCallbackName];
 
 		resetStats();
+		const callbackName = `BusuanziCallback_${Date.now()}_${Math.floor(
+			Math.random() * 1000000,
+		)}`;
+		activeCallbackName = callbackName;
+		window[callbackName] = function (data) {
+			const values = {
+				busuanzi_value_site_pv: data.site_pv,
+				busuanzi_value_site_uv: data.site_uv,
+				busuanzi_value_page_pv: data.page_pv,
+			};
+
+			Object.entries(values).forEach(([id, value]) => {
+				const element = document.getElementById(id);
+				if (element) element.textContent = value ?? "-";
+			});
+
+			const script = document.getElementById(BUSUANZI_SCRIPT_ID);
+			if (script) script.remove();
+			delete window[callbackName];
+			if (activeCallbackName === callbackName) activeCallbackName = "";
+		};
 
 		const script = document.createElement("script");
 		script.id = BUSUANZI_SCRIPT_ID;
 		script.async = true;
 		script.referrerPolicy = "no-referrer-when-downgrade";
-		script.src = BUSUANZI_SCRIPT_URL;
+		script.onerror = function () {
+			delete window[callbackName];
+			if (activeCallbackName === callbackName) activeCallbackName = "";
+		};
+		script.src = `${BUSUANZI_ENDPOINT}?jsonpCallback=${callbackName}&_=${Date.now()}`;
 		document.body.appendChild(script);
 	}
 
