@@ -7,6 +7,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: [
+					"JetBrains Mono Variable",
 					"Montserrat",
 					"Roboto",
 					"sans-serif",
