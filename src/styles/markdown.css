@@ -99,6 +99,15 @@
         }
     }
 
+    .bilibili-video {
+        @apply relative my-4 w-full overflow-hidden rounded-xl bg-black shadow-lg shadow-black/10;
+        aspect-ratio: 16 / 9;
+    }
+
+    .bilibili-video iframe {
+        @apply absolute inset-0 h-full w-full border-0;
+    }
+
 
     ul, ol {
         li::marker {
