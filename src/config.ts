@@ -18,12 +18,12 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/Still_002_001.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "assets/images/rurune.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
-			enable: true, // Display the credit text of the banner image
-			text: "魔法少女的魔女审判 by Re,AER", // Credit text to be displayed
-			url: "https://store.steampowered.com/app/3101040/", // (Optional) URL link to the original artwork or artist's page
+			enable: false, // Display the credit text of the banner image
+			text: "rurune by achcyano", // Credit text to be displayed
+			url: "https://时间的尽头", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
 	toc: {
