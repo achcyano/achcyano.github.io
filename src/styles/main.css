@@ -69,6 +69,19 @@
         mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
     }
 
+    #toc [data-toc-label] {
+        overflow-wrap: anywhere;
+    }
+
+    #toc [data-toc-label] .katex {
+        font-size: 1em;
+        line-height: inherit;
+    }
+
+    #toc [data-toc-label] .katex-html {
+        white-space: normal;
+    }
+
     .hide-scrollbar {
         scrollbar-width: none;
         -ms-overflow-style: none;

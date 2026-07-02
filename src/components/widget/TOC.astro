@@ -49,7 +49,7 @@ const maxLevel = siteConfig.toc.depth;
                     {heading.depth == minDepth + 1 && <div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div>}
                     {heading.depth == minDepth + 2 && <div class="transition w-1.5 h-1.5 rounded-sm bg-black/5 dark:bg-white/10"></div>}
                 </div>
-                <div class:list={["transition text-sm", {
+                <div data-toc-label class:list={["transition text-sm min-w-0 leading-6 break-words", {
                     "text-50": heading.depth == minDepth || heading.depth == minDepth + 1,
                     "text-30": heading.depth == minDepth + 2,
                 }]}>{removeTailingHash(heading.text)}</div>
@@ -180,6 +180,20 @@ class TableOfContents extends HTMLElement {
         this.active[idx] = true;
     };
 
+    getHeadingLabelHtml = (heading: HTMLElement) => {
+        const clone = heading.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll(".anchor").forEach((anchor) => anchor.remove());
+        return clone.innerHTML.trim();
+    };
+
+    syncRenderedHeadingLabel = (tocEntry: HTMLAnchorElement, heading: HTMLElement) => {
+        const label = tocEntry.querySelector<HTMLElement>("[data-toc-label]");
+        const headingHtml = this.getHeadingLabelHtml(heading);
+        if (label && headingHtml) {
+            label.innerHTML = headingHtml;
+        }
+    };
+
     handleAnchorClick = (event: Event) => {
         const anchor = event
             .composedPath()
@@ -238,6 +252,7 @@ class TableOfContents extends HTMLElement {
             const heading = document.getElementById(id);
             const section = heading?.parentElement;
             if (heading instanceof HTMLElement && section instanceof HTMLElement) {
+                this.syncRenderedHeadingLabel(this.tocEntries[i], heading);
                 this.headings[i] = heading;
                 this.sections[i] = section;
                 this.headingIdxMap.set(id, i);
